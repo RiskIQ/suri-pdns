@@ -9,7 +9,7 @@ def read(fname):
 
 setup(
     name = "suri-pdns",
-    version = "0.0.1",
+    version = "0.0.2",
     description = "Parse suricata logs and output DNS data.",
     author = "Johan Nestaas",
     author_email = "johan.nestaas@riskiq.com",
