@@ -42,8 +42,14 @@ def build_pdns_row(timestamp, data):
 
 def parse_f(f, re_exclude=None):
     logs = Counter()
-    for line in f:
-        line_data = json.loads(line)
+    for full_line in f:
+        # strip out 0x0a in case newline was not stripped correctly
+        line = full_line.replace('\x0a', '').strip()
+        try:
+            line_data = json.loads(line)
+        except ValueError as e:
+            LOGGER.error('%s: %s\nLine: %s' % (e.__class__.__name__, e, line))
+            continue
         data = line_data['dns']
         if data['type'] != 'answer':
             continue
